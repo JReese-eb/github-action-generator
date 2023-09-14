@@ -1,16 +1,58 @@
-<div class="container mt-5">
+<div id="actions" class="container col-md-5">
+  <h1>Github Actions Generator</h1>
   <form [formGroup]="githubActionForm">
-    <div class="form-group">
-      <label for="jobName">Job Name</label>
-      <input type="text" class="form-control" id="jobName" formControlName="jobName">
+    <div class="section card">
+      <div class="form-group">
+        <label for="workflowName">Workflow Name</label>
+        <input type="text" class="form-control" id="workflowName" formControlName="workflowName">
+      </div>
     </div>
-    <div class="form-group">
-      <label for="runsOn">Runs On</label>
-      <select class="form-control" id="runsOn" formControlName="runsOn">
-        <option value="ubuntu-latest">Ubuntu Latest</option>
-        <!-- Add other options as needed -->
-      </select>
+
+    <div class="section card">
+      <div class="form-group">
+        <label for="on">On Event</label>
+        <select class="form-control" id="on" formControlName="on">
+          <option value="push">Push</option>
+          <option value="pull_request">Pull Request</option>
+        </select>
+      </div>
     </div>
+
+    <!-- Environment Variables -->
+    <h2>Environment Variables:</h2>
+    <div class="section card">
+
+      <div formArrayName="environmentVariables">
+        <div *ngFor="let envs of environmentVariables.controls; let i = index">
+          <div [formGroupName] = "i">
+            <label for="envLabel">Label</label>
+            <input type="text" class="form-control" formControlName="label">
+            <label for="envValue">Value</label>
+            <input type="text" class="form-control" formControlName="value">
+          </div>
+        </div>
+        <button class="btn btn-secondary" (click)="addEnvironmentVariable()">Add Environment Variable</button>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <h2>Steps:</h2>
+    <div class="section card">
+      <div formArrayName="steps">
+        <div *ngFor="let step of steps.controls; let i = index">
+          <div [formGroupName]="i" class="step card">
+            <label for="stepName">Step Name</label>
+            <input type="text" class="form-control" formControlName="stepName">
+            <label for="usesAction">Uses Action</label>
+            <input type="text" class="form-control" formControlName="usesAction">
+            <label for="runCommand">Run Command</label>
+            <textarea class="form-control" formControlName="runCommand" rows="4" cols="50"></textarea>
+          </div>
+        </div>
+        <button class="btn btn-secondary" (click)="addStep()">Add Step</button>
+      </div>
+    </div>
+
     <!-- Add more fields as needed -->
     <button class="btn btn-primary" (click)="generateYAML()">Generate YAML</button>
   </form>
