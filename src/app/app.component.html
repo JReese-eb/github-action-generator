@@ -18,38 +18,49 @@
       </div>
     </div>
 
-    <!-- Environment Variables -->
-    <h2>Environment Variables:</h2>
-    <div class="section card">
+    <div class="job">
+      <h2>Job Configs</h2>
 
-      <div formArrayName="environmentVariables">
-        <div *ngFor="let envs of environmentVariables.controls; let i = index">
-          <div [formGroupName] = "i">
-            <label for="envLabel">Label</label>
-            <input type="text" class="form-control" formControlName="label">
-            <label for="envValue">Value</label>
-            <input type="text" class="form-control" formControlName="value">
-          </div>
-        </div>
-        <button class="btn btn-secondary" (click)="addEnvironmentVariable()">Add Environment Variable</button>
+      <div class="form-group">
+        <label for="runsOn">Runs On</label>
+        <select class="form-control" id="runsOn" formControlName="runsOn">
+          <option value="ubuntu-latest">ubuntu-latest</option>
+          <option value="maven">maven</option>
+        </select>
       </div>
-    </div>
 
-    <!-- Steps -->
-    <h2>Steps:</h2>
-    <div class="section card">
-      <div formArrayName="steps">
-        <div *ngFor="let step of steps.controls; let i = index">
-          <div [formGroupName]="i" class="step card">
-            <label for="stepName">Step Name</label>
-            <input type="text" class="form-control" formControlName="stepName">
-            <label for="usesAction">Uses Action</label>
-            <input type="text" class="form-control" formControlName="usesAction">
-            <label for="runCommand">Run Command</label>
-            <textarea class="form-control" formControlName="runCommand" rows="4" cols="50"></textarea>
+      <!-- Environment Variables -->
+      <div class="section card">
+        <label for="environmentVariables">Environment Variables:</label>
+        <div formArrayName="environmentVariables">
+          <div *ngFor="let envs of environmentVariables.controls; let i = index">
+            <div [formGroupName] = "i">
+              <label for="envLabel">Label</label>
+              <input type="text" class="form-control" formControlName="label">
+              <label for="envValue">Value</label>
+              <input type="text" class="form-control" formControlName="value">
+            </div>
           </div>
+          <button class="btn btn-secondary" (click)="addEnvironmentVariable()">Add Environment Variable</button>
         </div>
-        <button class="btn btn-secondary" (click)="addStep()">Add Step</button>
+      </div>
+
+      <!-- Steps -->
+      <div class="section card">
+        <label for="steps">Steps:</label>
+        <div formArrayName="steps">
+          <div *ngFor="let step of steps.controls; let i = index">
+            <div [formGroupName]="i" class="step card">
+              <label for="stepName">Step Name</label>
+              <input type="text" class="form-control" formControlName="stepName">
+              <label for="usesAction">Uses Action</label>
+              <input type="text" class="form-control" formControlName="usesAction">
+              <label for="runCommand">Run Command</label>
+              <textarea class="form-control" formControlName="runCommand" rows="4" cols="50"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-secondary" (click)="addStep()">Add Step</button>
+        </div>
       </div>
     </div>
 
